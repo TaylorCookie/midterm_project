@@ -1,4 +1,9 @@
 <?php
+
+$lifetime = 60 * 60 * 24 * 14; //2 weeks in seconds
+session_set_cookie_params($lifetime, '/');
+session_start();
+
 require('../../model/admin/database.php');
 require('../../model/admin/class_db.php');
 require('../../model/admin/makes_db.php');
@@ -11,7 +16,17 @@ if ($action == NULL) {
     if ($action == NULL) {
         $action = '';
     }
-}     
+}    
+
+$firstName = filter_input(INPUT_GET, 'firstName');
+if ($firstName) {
+    $isFirstName = true;
+    $_SESSION['userid'] = $firstName;
+} else {
+    $isFirstName = false;
+}
+
+
 
 switch ($action) {
     case 'sort_category':
@@ -44,6 +59,32 @@ switch ($action) {
         }
         
         include '../../view/customer/vehicles_list.php';
+        break;
+
+
+    case 'register':
+        if ($isFirstName) {
+            include '../../view/customer/register_thanks.php';
+        } else {
+            include '../../view/customer/register.php';
+        }
+        break;
+
+    case 'logout':
+        include '../../view/customer/logout.php';
+        //unset session variable
+        $_SESSION = array();
+        //destroy the session
+        session_destroy();
+        //delete the session cookie
+        $name = session_name();
+        $expire = strtotime('-1 year');
+        $params = session_get_cookie_params();
+        $path = $params['path'];
+        $domain = $params['domain'];
+        $secure = $params['secure'];
+        $httponly = $params['httponly'];
+        setcookie($name, '', $expire, $path, $domain, $secure, $httponly);
         break;
 
     default:

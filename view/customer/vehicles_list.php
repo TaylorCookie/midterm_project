@@ -1,3 +1,26 @@
+<!--display welcome message and sign out button if session is set -->
+
+<div class="container">
+    <?php 
+        if(isset($_SESSION['userid'])) { ?>
+            <h3>Welcome <?php echo($_SESSION['userid']) ?>!</h3>
+            <form action="." method="post">
+                <input type="hidden" name="action" value="logout">
+                <button>Sign Out</button>
+            </form>
+</div>
+
+<!-- else display register button -->
+<?php } else { ?> 
+    <div class="container">
+        <form action="." method="post">
+            <input type="hidden" name="action" value="register">
+            <button>Register</button>
+        </form>
+    </div>
+
+<?php } ?>
+
 <?php include '../../view/header.php'; ?>
 
 <div class="container">
