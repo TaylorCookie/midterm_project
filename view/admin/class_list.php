@@ -1,4 +1,7 @@
-<?php include '../../view/header.php'; ?>
+<?php 
+include '../../view/admin/header.php'; 
+?>
+
 
 <section class="container">
     <!-- Display a table of items -->
@@ -39,23 +42,5 @@
     </form>
 </section> 
 
-<section class="container">
-
-<form action="." method="post">
-<input type="hidden" name="action" value="types">
-<button>View Types</button>
-</form>
-
-<form action="." method="post">
-<input type="hidden" name="action" value="makes">
-<button>View Makes</button>
-</form>
-
-<form action="." method="post">
-<input type="hidden" name="action" value="vehicles">
-<button>View Vehicles</button>
-</form>
-
-</section>
 </main>
-<?php include '../../view/footer.php'; ?>
+<?php include '../../view/admin/footer.php'; ?>

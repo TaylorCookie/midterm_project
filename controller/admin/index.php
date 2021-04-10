@@ -1,9 +1,15 @@
 <?php
+//Start session management and include necessary functions
+$lifetime = 60 * 60 * 24 * 14; //2 weeks in seconds
+session_set_cookie_params($lifetime, '/');
+session_start();
+
 require('../../model/admin/database.php');
 require('../../model/admin/class_db.php');
 require('../../model/admin/makes_db.php');
 require('../../model/admin/types_db.php');
 require('../../model/admin/vehicles_db.php');
+require('../../model/admin/admin_db.php');
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
@@ -12,6 +18,11 @@ if ($action == NULL) {
         $action = '';
     }
 }     
+
+//If the user isn't logged in, force the user to log in
+if (!isset($_SESSION['is_valid_admin'])) {
+    $action = 'login';
+}
 
 switch ($action) {
     case 'class':
@@ -31,6 +42,20 @@ switch ($action) {
     case 'delete_make':
         include('./makes.php');
         break;
+
+    case 'login':
+    case 'show_login':
+    case 'register':
+    case 'show_register':
+    case 'logout':
+
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        $confirm_password = filter_input(INPUT_POST, 'confirm_password');
+
+        include('./admin.php');
+        break;
+    
 
     case 'sort_category':
         $make = filter_input(INPUT_POST, 'make_name');

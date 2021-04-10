@@ -1,4 +1,6 @@
-<?php include '../../view/header.php'; ?>
+<?php 
+include '../../view/admin/header.php'; 
+?>
 
 <div class="container">
     <form action="." method="post">
@@ -130,23 +132,5 @@
     </form>
 </section> <br></br>
 
-<section class="container">
-
-<form action="." method="post">
-<input type="hidden" name="action" value="types">
-<button>View Types</button>
-</form>
-
-<form action="." method="post">
-<input type="hidden" name="action" value="class">
-<button>View Classes</button>
-</form>
-
-<form action="." method="post">
-<input type="hidden" name="action" value="makes">
-<button>View Makes</button>
-</form>
-
-</section>
 </main>
-<?php include '../../view/footer.php'; ?>
+<?php include '../../view/admin/footer.php'; ?>
